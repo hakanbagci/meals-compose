@@ -8,9 +8,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: set up JDK 11
@@ -19,8 +17,27 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
         cache: gradle
-
-    - name: Grant execute permission for gradlew
+    - name: grant execute permission for gradlew
       run: chmod +x gradlew
-    - name: Build with Gradle
+    - name: build with Gradle
       run: ./gradlew build
+    - name: run JVM unit tests
+      run: ./gradlew check
+
+  ui-tests:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        api-level: [ 30 ]
+        target: [ default, google_apis ]
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: run instrumentation tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          target: ${{ matrix.target }}
+          arch: x86_64
+          profile: Nexus 6
+          script: ./gradlew connectedCheck
