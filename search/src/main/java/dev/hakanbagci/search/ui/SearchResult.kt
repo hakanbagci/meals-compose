@@ -10,7 +10,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.Center
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
@@ -59,7 +60,7 @@ private fun MealItem(
         Surface(
             shape = RoundedCornerShape(percent = 16),
             modifier = modifier
-                .align(Alignment.CenterVertically)
+                .align(CenterVertically)
                 .padding(8.dp)
         ) {
             Image(
@@ -80,7 +81,7 @@ private fun MealItem(
             text = meal.name,
             style = MaterialTheme.typography.subtitle1,
             modifier = modifier
-                .align(Alignment.CenterVertically)
+                .align(CenterVertically)
                 .padding(8.dp)
         )
     }
@@ -95,7 +96,7 @@ private fun ResultFallback(
         modifier = modifier.fillMaxSize()
     ) {
         Text(
-            modifier = modifier.align(Alignment.Center),
+            modifier = modifier.align(Center),
             text = message
         )
     }
